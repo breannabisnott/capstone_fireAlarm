@@ -1,0 +1,164 @@
+input[type="submit"] {
+    background-color: #e55604;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+.navBar{
+    height: 70px;
+    width: 100%;
+    background-color: #ffffff;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    position: relative;
+}
+
+.menu{
+    height: 70px;
+    background-color:  #ffffff;
+    margin-bottom: 0px;
+
+    display: flex;   
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; 
+    
+    position: relative;    
+}
+.menuitem{
+    color: black;
+    height: 100%;
+    font-size: 15px;
+    font-family: 'Muli', 'Arial', 'sans-serif';
+    font-weight: 600;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    position: relative; 
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+.menuitem:hover{
+    color: #e55604;
+}
+
+.dropdown{
+    /* background-color: #b4b4b3; */
+    display: none;
+    position: absolute;
+    z-index: 10;
+    width: 140px;
+    top: 80px;
+    left: 0px;
+    margin-left: -20px;
+}
+.menuitem:hover .dropdown{
+    display: block;
+    background-color: rgba(180,180,179,0.5);
+}
+.dropdownitem{
+    color:black;
+    font-size: 15px;
+    font-family: 'Muli', 'Arial', 'sans-serif';
+    font-weight: 600;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    text-align: left;
+   
+
+}
+.dropdownitem:hover{
+    color: #e55604;
+}
+.dropdownitem {
+    text-decoration: none;
+}
+
+.rightBar{
+    display: flex;
+    margin-bottom: 0px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; 
+    background-color:  #ffffff;
+    position: relative;   
+    height: 100%;
+    padding-right: 30px;
+}
+.rightBarsearchImage{
+    height: 28px;
+    width: 28px;
+    cursor: pointer;
+    padding-right: 4px;
+}
+.rightBarImage{
+    height: 40px;
+    width: 40px;
+    /* margin-right: 5px; */
+    cursor: pointer;
+}
+.rightBarItem{
+    color: black;
+    height: 100%;
+    font-size: 15px;
+    font-family: 'Muli', 'Arial', 'sans-serif';
+    font-weight: 600;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    position: relative; 
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+.rightBarItem:hover{
+    color: #e55604;
+}
+
+.leftBar{
+    display: flex;
+    margin-bottom: 0px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; 
+    background-color:  #ffffff;
+    /* position: relative;    */
+    height: 100%;
+    padding-left: 30px;
+}
+.leftBarImage{
+    height: 60px;
+    width: 160px;
+}
+
+a{
+    all:unset;
+}
+
+body{
+    /* background-color: #ebe4d1; */
+    background-color: white;
+    margin: 0;
+}
+p{
+    font-size: 17.5px;
+    line-height: 30px;
+}

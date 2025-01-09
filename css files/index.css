@@ -1,0 +1,97 @@
+@font-face {
+    font-family: Poppins-Regular;
+    src: url('../fonts/poppins/Poppins-Regular.ttf'); 
+}
+  
+@font-face {
+font-family: Poppins-Medium;
+src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+}
+
+@font-face {
+font-family: Poppins-Bold;
+src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+}
+
+@font-face {
+font-family: Poppins-SemiBold;
+src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
+}
+
+body{
+    background-color: firebrick;
+    color: black;
+    font-size: 16px;
+    background-image: url("https://i.pinimg.com/736x/73/5d/25/735d259071d5b4ec2a78ff407359e192.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form {
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+
+    margin: auto;
+    padding: 50px 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #636363;
+}
+
+.form-title{
+    display: block;
+  font-family: Poppins-Bold;
+  font-size: 39px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    margin-bottom: 18px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 8px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+    font-size: 14px;
+    font-family: Poppins-Medium;
+    border-radius: 20px;
+    display: block;
+    margin: auto;
+}
+
+button:hover {
+opacity: 0.8;
+}
+
+.imgcontainer {
+text-align: center;
+margin: 0 0 15px 0;
+}
+
+img.avatar {
+width: 30%;
+border-radius: 40%;
+}
+
+.container {
+padding: 16px;
+font-family: Poppins-Regular;
+}
