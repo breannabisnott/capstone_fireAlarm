@@ -1,0 +1,32 @@
+#map {
+  height: 100%;
+}
+
+/* 
+ * Optional: Makes the sample page fill the window. 
+ */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+gmp-map {
+  
+  height:560px;
+  padding-left: 290px;
+  padding-right: 20px;
+  padding-top:20px;
+  
+}
+
+.googleMap{
+  /* padding: 20px 0px; */
+  display: flex;
+  justify-content: flex-start;
+  
+  width: 100%;
+}
+
+/* [END maps_web_components_markers] */
