@@ -1,4 +1,4 @@
-fetch("http://129.80.159.197:8000/data/doop?page_size=3&page_number=0")
+fetch("https://api.fyahalarm.com/data/doop?page_size=3&page_number=0")
   .then((response) => {
     // If the response is not 2xx, throw an error
     if (!response.ok) {
