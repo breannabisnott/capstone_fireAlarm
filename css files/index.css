@@ -1,3 +1,5 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
 @font-face {
     font-family: Poppins-Regular;
     src: url('../fonts/poppins/Poppins-Regular.ttf'); 
@@ -18,13 +20,30 @@ font-family: Poppins-SemiBold;
 src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
 }
 
-body{
+HTML, body{
     background-color: firebrick;
     color: black;
     font-size: 16px;
     background-image: url("https://i.pinimg.com/736x/73/5d/25/735d259071d5b4ec2a78ff407359e192.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    height:100%;
+    margin: 0 0 0 0;
+}
+
+#grand-pageContainer{
+    display:table; 
+    height:100%; 
+    margin: 0 auto;
+}
+
+#pageContainer{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    display:table-cell; 
+    vertical-align:middle;
 }
 
 .form {
@@ -33,9 +52,10 @@ body{
     border-radius: 10px;
     overflow: hidden;
     margin: auto;
-    padding: 50px 0;
+    padding: 50px;
     padding-left: 20px;
     padding-right: 20px;
+    padding-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,12 +64,24 @@ body{
 
 .form-title{
     display: block;
-  font-family: Poppins-Bold;
-  font-size: 39px;
-  color: #333333;
-  line-height: 1.2;
-  text-align: center;
+    font-family: Poppins-Bold;
+    font-size: 39px;
+    color: #333333;
+    line-height: 1.2;
+    text-align: center;
+    padding-bottom:10px;
 }
+
+.msg {
+    color: #fa2929;
+    /* position: absolute;
+    height: 30px; */
+    text-align: center;
+    font-family: Poppins-Regular;
+    font-size: 12px;
+}
+
+
 
 input[type=text], input[type=password] {
     width: 100%;
@@ -93,4 +125,50 @@ border-radius: 40%;
 .container {
 padding: 16px;
 font-family: Poppins-Regular;
+}
+
+.shift-left {
+    transform: translateX(-100%);
+}
+
+.shift-right {
+    transform: translateX(100%);
+}
+
+.shift-top {
+    transform: translateY(-90%);
+}
+
+.shift-bottom {
+    transform: translateY(140%);
+}
+
+.no-shift {
+    transform: translate(0%, 0%);
+}
+
+.btn-container {
+    padding: 20px;
+    transition: .2s linear;
+}
+
+#login-btn{
+    background-color: #04AA6D;
+    color: white;
+    padding: 8px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 45%;
+    font-size: 14px;
+    font-family: Poppins-Medium;
+    border-radius: 20px;
+    display: block;
+    margin: auto;
+    transition: .3s;
+}
+
+.message{
+    color:#333333;
+    height: 10px;
 }

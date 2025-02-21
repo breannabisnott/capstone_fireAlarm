@@ -5,17 +5,16 @@
   <title>Device Locations</title>
   <link rel="icon" type="image/x-icon" href="images/faviconRed.png">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'><link rel="stylesheet" href="css files/navBar.css">
-  <!-- <link rel="stylesheet" href="css files/overview.css"> -->
   <link rel="stylesheet" type="text/css" href="css files/map.css" />
-    <script type="module" src="javascript files/map.js"></script>
+  <link rel="stylesheet" href="css files/navBar.css">
 
 </head>
 <body>
 <!-- navbar -->
-<div class="locationContainer">
+<div class="pageContainer">
   <div id="nav-bar">
-    <input id="nav-toggle" type="checkbox"/>
-    <div id="nav-header"><a id="nav-title" href="index.html" target="_blank">FIRE ALARM</a>
+    <input id="nav-toggle" type="checkbox" checked/>
+    <div id="nav-header"><a id="nav-title" href="index.html" target="_blank">Fire Alarm</a>
       <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
       <hr/>
     </div>
@@ -23,14 +22,7 @@
       <div class="nav-button"><a href="overview.html"><i class="fas fa-fire"></i><span>Overview</span></div></a>
       <div class="nav-button"><a href="history.html"><i class="fas fa-chart-line"></i><span>History</span></div></a>
       <div class="nav-button"><a href="locations.html"><i class="fas fa-thumbtack"></i><span>Device Locations</span></div></a>
-      <hr/>
-      <!-- <div class="nav-button"><i class="fas fa-heart"></i><span>Following</span></div>
-      <div class="nav-button"><i class="fas fa-palette"></i><span>Your Work</span></div>
-      <div class="nav-button"><i class="fas fa-images"></i><span>Assets</span></div>
-      
-      <div class="nav-button"><i class="fas fa-magic"></i><span>Spark</span></div>
-      <hr/>
-      <div class="nav-button"><i class="fas fa-gem"></i><span>Codepen Pro</span></div> -->
+      <!-- <hr/> -->
       <div id="nav-content-highlight"></div> 
     </div>
     <input id="nav-footer-toggle" type="checkbox"/>
@@ -41,23 +33,26 @@
         <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
       </div>
       <div id="nav-footer-content">
-        <Lorem>Alex is the epitome of cool under pressure. With a knack for turning complex problems into simple solutions, he loves spending his days coding and creating elegant software.</Lorem>
+        <span>Alex is the epitome of cool under pressure. With a knack for turning complex problems into simple solutions, he loves spending his days coding and creating elegant software.</span>
       </div>
     </div>
   </div>
   <!-- navbar -->
-
-  <div class="googleMap">
-    <gmp-map center="18.0036678314209,-76.74954223632812" zoom="14" map-id="DEMO_MAP_ID">
-      <gmp-advanced-marker position="18.0036678314209,-76.74954223632812" title="Kitchen"></gmp-advanced-marker>
-    </gmp-map>
-    <!-- [END maps_web_components_markers_div] -->
-
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=&libraries=maps,marker&v=beta"
-      defer>
-    </script>
+  <div id="pageContent">
+    <div class="googleMap">
+      <gmp-map center="18.0036678314209,-76.74954223632812" zoom="14" map-id="DEMO_MAP_ID">
+        <gmp-advanced-marker position="18.0036678314209,-76.74954223632812" title="Kitchen"></gmp-advanced-marker>
+      </gmp-map>
+      <!-- [END maps_web_components_markers_div] -->
+  
+      <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArfQH4roSbTQfg1d9qHydtbF1hCvg_A8c&libraries=maps,marker&v=beta"
+        defer>
+      </script>
+    </div>
   </div>
+  
+  <script src="javascript files/navbar.js"></script>
 </div> 
 
 

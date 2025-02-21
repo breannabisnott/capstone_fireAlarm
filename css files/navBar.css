@@ -18,8 +18,20 @@ font-family: Poppins-SemiBold;
 src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
 }
 
+@font-face {
+  font-family: Angelos ;
+  src: url(../fonts/Angelos.ttf);
+}
+
+@font-face {
+  font-family: Rekalgera-Regular ;
+  src: url(../fonts/Rekalgera-Regular.otf);
+}
+
+
+
 :root {
-  --background: #e9b890;
+  --background: #E5D0AC;
   --navbar-width: 256px;
   --navbar-width-min: 80px;
   --navbar-dark-primary: #430707;
@@ -61,7 +73,7 @@ src: url('../fonts/poppins/Poppins-SemiBold.ttf');
     transition: opacity 0.1s;
   }
   #nav-toggle:checked ~ #nav-content .nav-button .fas {
-    min-width: calc(100% - 16px);
+    min-width: calc(100% - 40px);
   }
   #nav-toggle:checked ~ #nav-footer #nav-footer-avatar {
     margin-left: 0;
@@ -106,16 +118,17 @@ src: url('../fonts/poppins/Poppins-SemiBold.ttf');
   
   #nav-header {
     position: relative;
-    width: var(--navbar-width);
-    left: 16px;
+    left: 30px;
     width: calc(var(--navbar-width) - 16px);
-    min-height: 80px;
+    height: 80px;
     background: var(--navbar-dark-primary);
-    border-radius: 16px;
+    border-radius: 10px;
     z-index: 2;
     display: flex;
     align-items: center;
     transition: width 0.2s;
+    font-family: Rekalgera-Regular;
+
   }
   #nav-header hr {
     position: absolute;
@@ -123,7 +136,7 @@ src: url('../fonts/poppins/Poppins-SemiBold.ttf');
   }
   
   #nav-title {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     transition: opacity 1s;
   }
   
@@ -134,7 +147,7 @@ src: url('../fonts/poppins/Poppins-SemiBold.ttf');
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     cursor: pointer;
   }
   
@@ -221,6 +234,17 @@ src: url('../fonts/poppins/Poppins-SemiBold.ttf');
     z-index: 1;
     transition: color 0.2s;
   }
+
+  .nav-button a {
+    display: flex;
+    align-items: center; /* Ensures the icon and text inside the link are vertically centered */
+    text-decoration: none; /* Removes underline from links */
+}
+
+.nav-button i {
+    margin-right: 8px; /* Adds some space between icon and text */
+}
+
   .nav-button span {
     transition: opacity 1s;
   }

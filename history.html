@@ -5,15 +5,16 @@
   <title>History</title>
   <link rel="icon" type="image/x-icon" href="images/faviconRed.png">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'><link rel="stylesheet" href="css files/navBar.css">
-  <link rel="stylesheet" href="css files/overview.css">
+  <link rel="stylesheet" href="css files/history.css">
+  <link rel="stylesheet" href="css files/navBar.css">
 
 </head>
 <body>
 <!-- navbar -->
 
 <div id="nav-bar">
-  <input id="nav-toggle" type="checkbox"/>
-  <div id="nav-header"><a id="nav-title" href="index.html" target="_blank">FIRE ALARM</a>
+  <input id="nav-toggle" type="checkbox" checked/>
+  <div id="nav-header"><a id="nav-title" href="index.html" target="_blank">Fire Alarm</a>
     <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
     <hr/>
   </div>
@@ -21,14 +22,7 @@
     <div class="nav-button"><a href="overview.html"><i class="fas fa-fire"></i><span>Overview</span></div></a>
     <div class="nav-button"><a href="history.html"><i class="fas fa-chart-line"></i><span>History</span></div></a>
     <div class="nav-button"><a href="locations.html"><i class="fas fa-thumbtack"></i><span>Device Locations</span></div></a>
-    <hr/>
-    <!-- <div class="nav-button"><i class="fas fa-heart"></i><span>Following</span></div>
-    <div class="nav-button"><i class="fas fa-palette"></i><span>Your Work</span></div>
-    <div class="nav-button"><i class="fas fa-images"></i><span>Assets</span></div>
-    
-    <div class="nav-button"><i class="fas fa-magic"></i><span>Spark</span></div>
-    <hr/>
-    <div class="nav-button"><i class="fas fa-gem"></i><span>Codepen Pro</span></div> -->
+    <!-- <hr/> -->
     <div id="nav-content-highlight"></div> 
   </div>
   <input id="nav-footer-toggle" type="checkbox"/>
@@ -39,11 +33,40 @@
       <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
     </div>
     <div id="nav-footer-content">
-      <Lorem>Alex is the epitome of cool under pressure. With a knack for turning complex problems into simple solutions, he loves spending his days coding and creating elegant software.</Lorem>
+      <span>Alex is the epitome of cool under pressure. With a knack for turning complex problems into simple solutions, he loves spending his days coding and creating elegant software.</span>
     </div>
   </div>
 </div>
 <!-- navbar -->
+
+<label for="device_id">Select Device:</label>
+    <input type="text" id="device_id" placeholder="Enter device ID" />
+
+    <!-- Table to display the data -->
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Device ID</th>
+                <th>Timestamp</th>
+                <th>Temperature</th>
+                <th>Flame</th>
+                <th>Flame Level</th>
+                <th>Gas</th>
+                <th>Gas Concentration</th>
+                <th>Oxygen Concentration</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here -->
+        </tbody>
+    </table>
+
+    <!-- Pagination controls -->
+    <div class="pagination">
+        <button onclick="loadData(1)">Previous</button>
+        <button onclick="loadData(2)">Next</button>
+    </div>
   
 
 
