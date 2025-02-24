@@ -1,17 +1,112 @@
+#pageContent1{
+    display:flex;
+    flex-direction: row;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    padding-right: 1vw;
+    height: calc(100% - 2vw);
+    padding-left: 120px;
+    width:90vw;
+    justify-content: space-between;
+    margin-right: 1vw;
+} 
+
+#pageContainer1{
+display: flex;
+/* height: 100vh;   */
+overflow: hidden;
+} 
+
+body {
+    background-color: #6d1111;
+    color: white;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: black;
+
+    display: flex;
+    
+    padding-top: 1vw;
+    padding-right: 1vw;
+    /* height: calc(100% - 2vw); */
+    padding-left: 120px;
+    width: 90vw;
+    justify-content: space-between;
+    margin-right: 1vw;
+    background-color: #6d1111;
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+    max-height: 80vh;
+}
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid black; /* Ensure the black border is applied */
+    background: white;
 }
-table, th, td {
-    border: 1px solid black;
+
+th:first-child {
+    border-top-left-radius: 10px;
+}
+th:last-child {
+    border-top-right-radius: 10px;
 }
 th, td {
+    border: 1px solid black;
     padding: 10px;
     text-align: left;
+    color: black;
+    font-family: Poppins-Regular;
+    font-size: 14px;
 }
 th {
-    background-color: #f2f2f2;
+    background-color: #6d1111;
+    color: white;
 }
 .pagination {
-    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+.pagination button {
+    margin: 2px;
+    padding: 8px 12px;
+    background-color: #6d1111;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.pagination button:hover {
+    background-color: #430707;
+}
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.controls label, .controls input, .controls select {
+    margin: 5px;
+}
+input, select {
+    padding: 2px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+label{
+    font-family: Poppins-Bold;
+    font-size: 14px;
+    color: #430707;
 }

@@ -128,7 +128,6 @@ src: url('../fonts/poppins/Poppins-SemiBold.ttf');
     align-items: center;
     transition: width 0.2s;
     font-family: Rekalgera-Regular;
-
   }
   #nav-header hr {
     position: absolute;
@@ -136,7 +135,7 @@ src: url('../fonts/poppins/Poppins-SemiBold.ttf');
   }
   
   #nav-title {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
     transition: opacity 1s;
   }
   

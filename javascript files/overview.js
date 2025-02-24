@@ -1,4 +1,5 @@
-fetch("https://api.fyahalarm.com/data/doop?page_size=3&page_number=0")
+fetch("https://api.fyahalarm.com/latestData/AC:15:18:D7:B0:80")
+//fetch("http://localhost:8000/latestData/AC:15:18:D7:B0:80")
   .then((response) => {
     // If the response is not 2xx, throw an error
     if (!response.ok) {
