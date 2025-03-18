@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link rel="icon" type="image/x-icon" href="images/faviconRed.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'><link rel="stylesheet" href="css files/navBar.css">
+    <link rel="stylesheet" href="css files/history.css">
+    <link rel="stylesheet" href="css files/overview.css">
+    <link rel="stylesheet" href="css files/navBar.css">
+    <link rel="stylesheet" href="css files/report.css">
+</head>
+<body>
+<div id="pageContainer1">
+    <!-- navbar -->
+    <div id="nav-bar">
+      <input id="nav-toggle" type="checkbox" checked/>
+      <div id="nav-header"><a id="nav-title" href="overview.html" target="_blank">Fyah Alarm</a>
+        <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+        <hr/>
+      </div>
+      <div id="nav-content">
+        <div class="nav-button"><a href="overview.html"><i class="fas fa-fire"></i><span>Overview</span></div></a>
+        <div class="nav-button"><a href="history.html"><i class="fas fa-chart-line"></i><span>History</span></div></a>
+        <div class="nav-button"><a href="report.html"><i class="fas fa-archive"></i><span>Report</span></div></a>
+        <div class="nav-button"><a href="settings.html"><i class="fas fa-cog"></i><span>Settings</span></div></a>
+        <div class="nav-button"><a href="index.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></div></a>
+        
+        <!-- <hr/> -->
+        <div id="nav-content-highlight"></div> 
+      </div>
+      <input id="nav-footer-toggle" type="checkbox"/>
+      <div id="nav-footer">
+        <div id="nav-footer-heading">
+          <div id="nav-footer-avatar"><img src="https://cdn.vectorstock.com/i/500p/82/33/person-gray-photo-placeholder-woman-vector-24138233.jpg"/></div>
+          <div id="nav-footer-titlebox"><a id="nav-footer-title"  target="_blank">Breanna</a><span id="nav-footer-subtitle">Admin</span></div>
+          <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+        </div>
+        <div id="nav-footer-content">
+          <span>1 Monitoring Device Connected. MAC Address: AC:15:18:D7:B0:80</span>
+        </div>
+      </div>
+    </div>
+    <!-- navbar -->
+    <div id="report-pageContent">
+        <div class="content-top">
+          <div id="myDevices-title">Report Generator</div>
+          <div class="subtitle">Please select an entry to generate a report.</div>
+          <div class="controls">
+            <label for="deviceId">Device ID:</label>
+            <input type="text" id="deviceId" placeholder="Enter Device ID" oninput="fetchData()">
+            <label for="startDate">Start Date & Time:</label>
+            <input type="datetime-local" id="startDate" onchange="filterTable()">
+            <label for="endDate">End Date & Time:</label>
+            <input type="datetime-local" id="endDate" onchange="filterTable()">
+            <label for="recordsPerPage">Records per page:</label>
+            <select id="recordsPerPage" onchange="changePageSize()">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+            </select>
+        </div>
+        <table id="myTable" class="display">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Device ID</th>
+                    <th>Time Stamp</th>
+                    <th>Temperature</th>
+                    <th>Flame Status</th>
+                    <th>Flame Level</th>
+                    <th>Gas Status</th>
+                    <th>Gas Concentration</th>
+                    <th>O2 Concentration</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="pagination" id="pagination"></div>
+        <script src="javascript files/report.js"></script>
+
+        <div class="content-bottom">
+            <div id="additional-data">
+                <div class="upload-container">
+                    <label for="imageUpload">Upload Image</label>
+                    <input type="file" id="imageUpload" accept="image/*" onchange="handleFileUpload(event, 'image')">
+                </div> 
+
+
+                <div class="upload-container">
+                    <label for="videoUpload">Upload Video</label>
+                    <input type="file" id="videoUpload" accept="video/*" onchange="handleFileUpload(event, 'video')">
+                </div>
+
+            </div>
+
+            <div class="upload-container">
+                <div class="upload-container">
+                    <label for="audioUpload">Upload Audio</label>
+                    <input type="file" id="audioUpload" accept="audio/*" onchange="handleFileUpload(event, 'audio')">
+                </div>
+
+                <label for="additionalText">Additional Notes</label>
+                <textarea id="additionalText" rows="2" cols="20" placeholder="Enter additional notes" oninput="updateAdditionalText(event)"></textarea>
+            </div>
+
+            <div id="generate-container">
+                <button class="button" onclick="generatePDF()">Generate PDF</button>
+                <button id="downloadBtn" style="display: none;" onclick="downloadPDF()">Download PDF</button>
+                <br>
+                <input type="email" id="email" placeholder="Enter email">
+                <button class="button" onclick="sendEmail()">Send Email</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+    
+</body>
+</html>

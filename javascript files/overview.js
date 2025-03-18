@@ -1,13 +1,62 @@
 fetch("https://api.fyahalarm.com/latestData/AC:15:18:D7:B0:80")
-//fetch("http://localhost:8000/latestData/AC:15:18:D7:B0:80")
   .then((response) => {
-    // If the response is not 2xx, throw an error
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-
-    // If the response is 200 OK, return the response in JSON format.
     return response.json();
   })
-  .then((data) => console.log(data)) // You can continue to do something to the response.
-  .catch((error) => console.error("Fetch error:", error)); // In case of an error, it will be captured and logged.
+  .then((data) => {
+    displayDeviceData(data);
+  })
+  .catch((error) => console.error("Fetch error:", error));
+
+function displayDeviceData(device) {
+  const container = document.getElementById("myDevices");
+
+  // Create the device box
+  const deviceBox = document.createElement("div");
+  deviceBox.classList.add("deviceBox");
+
+  // Create caption box
+  const captionBox = document.createElement("div");
+  captionBox.classList.add("deviceCaptionBox");
+
+  // Name container with editable span
+  const nameContainer = document.createElement("div");
+  nameContainer.classList.add("nameContainer");
+  const deviceName = document.createElement("span");
+  deviceName.classList.add("deviceName");
+  deviceName.contentEditable = true;
+  deviceName.textContent = device.name || "Unknown Device"; // Default name if not provided
+
+  nameContainer.appendChild(deviceName);
+
+  // Text container
+  const textContainer = document.createElement("div");
+  textContainer.classList.add("textContainer");
+
+  textContainer.innerHTML = `
+    <p class="deviceText">Device: ${device.status ? "ON" : "OFF"}</p>
+    <p class="deviceText">Temperature: ${device.temperature} C</p>
+    <p class="deviceText">Oxygen Concentration: ${device.oxygen}%</p>
+    <p class="deviceText">Gas Concentration: ${device.gas}%</p>
+    <p class="deviceText">Flame: ${device.flameDetected ? "Detected" : "Not Detected"}</p>
+  `;
+
+  // Image container
+  const imgContainer = document.createElement("div");
+  imgContainer.classList.add("imgContainer");
+  const img = document.createElement("img");
+  img.src = "images/faviconRed.png";
+  img.alt = "Device Image";
+  img.classList.add("productImg");
+
+  imgContainer.appendChild(img);
+
+  // Append elements
+  captionBox.appendChild(nameContainer);
+  captionBox.appendChild(textContainer);
+  deviceBox.appendChild(captionBox);
+  deviceBox.appendChild(imgContainer);
+  container.appendChild(deviceBox);
+}
