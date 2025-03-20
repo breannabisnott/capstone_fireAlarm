@@ -212,7 +212,7 @@ async function sendPDFToBackend(pdfDoc) {
     formData.append('email', email);
 
     try {
-        const response = await fetch('Http://127.0.0.1:8000/send-email', {
+        const response = await fetch('https://fyahalarm.com/send-email', {
             method: 'POST',
             body: formData
         });
