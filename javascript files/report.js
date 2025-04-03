@@ -37,6 +37,7 @@ function displayPage(page) {
             <td>${record.device_id}</td>
             <td>${record.time_stamp}</td>
             <td>${record.temperature}</td>
+            <td>${record.humidity}</td>
             <td>${record.flame}</td>
             <td>${record.flame_level}</td>
             <td>${record.gas}</td>
@@ -108,11 +109,12 @@ function generatePDF() {
     pdfDoc.text(`Device ID: ${cells[1].innerText}`, 10, 20);
     pdfDoc.text(`Timestamp: ${cells[2].innerText}`, 10, 30);
     pdfDoc.text(`Temperature: ${cells[3].innerText}`, 10, 40);
-    pdfDoc.text(`Flame Status: ${cells[4].innerText}`, 10, 50);
-    pdfDoc.text(`Flame Level: ${cells[5].innerText}`, 10, 60);
-    pdfDoc.text(`Gas Status: ${cells[6].innerText}`, 10, 70);
-    pdfDoc.text(`Gas Concentration: ${cells[7].innerText}`, 10, 80);
-    pdfDoc.text(`O2 Concentration: ${cells[8].innerText}`, 10, 90);
+    pdfDoc.text(`Humidity: ${cells[3].innerText}`, 10, 50);
+    pdfDoc.text(`Flame Status: ${cells[4].innerText}`, 10, 60);
+    pdfDoc.text(`Flame Level: ${cells[5].innerText}`, 10, 70);
+    pdfDoc.text(`Gas Status: ${cells[6].innerText}`, 10, 80);
+    pdfDoc.text(`Gas Concentration: ${cells[7].innerText}`, 10, 90);
+    pdfDoc.text(`O2 Concentration: ${cells[8].innerText}`, 10, 100);
 
     if (additionalText) {
         pdfDoc.text("Additional Notes:", 10, 110);

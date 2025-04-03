@@ -30,6 +30,7 @@ let data = [];
                     <td>${record.device_id}</td>
                     <td>${record.time_stamp}</td>
                     <td>${record.temperature}</td>
+                    <td>${record.humidity}</td>
                     <td>${record.flame}</td>
                     <td>${record.flame_level}</td>
                     <td>${record.gas}</td>
