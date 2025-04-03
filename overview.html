@@ -61,12 +61,11 @@
         <div class = "location-text">
             <span class="yourLocation">Device Location</span>
         </div>
-        <div class = "map">
-          <gmp-map center="18.0036678314209,-76.74954223632812" zoom="16" map-id="DEMO_MAP_ID">
-            <gmp-advanced-marker position="18.0036678314209,-76.74954223632812" title="Your Location"></gmp-advanced-marker>
+        <div class = "map" id="map">
+          <gmp-map  zoom="16" map-id="DEMO_MAP_ID">
+            <gmp-advanced-marker title="Your Location"></gmp-advanced-marker>
           </gmp-map>
-          <!-- [END maps_web_components_markers_div] -->
-      
+          
           <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArfQH4roSbTQfg1d9qHydtbF1hCvg_A8c&libraries=maps,marker&v=beta"
             defer>

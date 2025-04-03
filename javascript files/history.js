@@ -1,5 +1,5 @@
 let data = [];
-        let currentPage = 1;
+        window.onloadge = 1;
         let recordsPerPage = 5;
 
         async function fetchData() {

@@ -1,3 +1,8 @@
+//require('dotenv').config();
+
+//const apiKey = process.env.MAP_KEY;
+console.log("hi");
+
 fetch("https://api.fyahalarm.com/latestData/AC:15:18:D7:B0:80")
   .then((response) => {
     if (!response.ok) {
@@ -60,3 +65,39 @@ function displayDeviceData(device) {
   deviceBox.appendChild(imgContainer);
   container.appendChild(deviceBox);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const deviceId = 'AC:15:18:D7:B0:80'; // Replace with your actual device ID
+  let mapElement = document.querySelector("gmp-map");
+  let markerElement = document.querySelector("gmp-advanced-marker");
+  console.log("hi1");
+
+  async function fetchLatestLocation() {
+      try {
+          console.log(deviceId);
+          const response = await fetch(`https://api.fyahalarm.com/latestLocation/${deviceId}`);
+          const data = await response.json();
+
+          if (Array.isArray(data) && data.length > 0) {
+            const latitude = parseFloat(data[0].lat);  // Access first object in array
+            const longitude = parseFloat(data[0].lng);
+
+            console.log("Parsed Latitude:", latitude, "Parsed Longitude:", longitude); // Debugging
+
+            document.querySelector("gmp-map").setAttribute("center", `${latitude},${longitude}`);
+            document.querySelector("gmp-advanced-marker").setAttribute("position", `${latitude},${longitude}`);
+        } else {
+            console.error("Invalid latitude or longitude from API:", data);
+        }
+      } catch (error) {
+          console.error('There was a problem with the fetch operation:', error);
+      }
+  }
+
+  // function updateMapAndMarker(lat, lng) {
+  //     mapElement.setAttribute('center', `${lat},${lng}`);
+  //     markerElement.setAttribute('position', `${lat},${lng}`);
+  // }
+
+  fetchLatestLocation();
+});
