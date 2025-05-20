@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>History</title>
+  <link rel="icon" type="image/x-icon" href="images/faviconRed.png">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'><link rel="stylesheet" href="css files/navBar.css">
+  <link rel="stylesheet" href="css files/history.css">
+  <link rel="stylesheet" href="css files/settings.css">
+  <link rel="stylesheet" href="css files/navBar.css">
+  <link rel="stylesheet" href="css files/overview.css">
+
+</head>
+<body>
+
+    <div id="pageContainer1">
+
+        <!-- navbar -->
+
+        <div id="nav-bar">
+            <input id="nav-toggle" type="checkbox" checked/>
+            <div id="nav-header"><a id="nav-title" href="overview.html" target="_blank">Fyah Alarm</a>
+            <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+            <hr/>
+            </div>
+            <div id="nav-content">
+            <div class="nav-button"><a href="overview.html"><i class="fas fa-fire"></i><span>Overview</span></div></a>
+            <div class="nav-button"><a href="history.html"><i class="fas fa-chart-line"></i><span>History</span></div></a>
+            <div class="nav-button"><a href="report.html"><i class="fas fa-archive"></i><span>Report</span></div></a>
+            <div class="nav-button"><a href="settings.html"><i class="fas fa-cog"></i><span>Settings</span></div></a>
+            <div class="nav-button"><a href="index.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></div></a>
+            <!-- <div class="nav-button"><a href="locations.html"><i class="fas fa-thumbtack"></i><span>Device Locations</span></div></a> -->
+            <!-- <hr/> -->
+            <div id="nav-content-highlight"></div> 
+            </div>
+            <input id="nav-footer-toggle" type="checkbox"/>
+            <div id="nav-footer">
+            <div id="nav-footer-heading">
+                <div id="nav-footer-avatar"><img src="https://cdn.vectorstock.com/i/500p/82/33/person-gray-photo-placeholder-woman-vector-24138233.jpg"/></div>
+                <div id="nav-footer-titlebox"><a id="nav-footer-title"  target="_blank">Breanna</a><span id="nav-footer-subtitle">Admin</span></div>
+                <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+            </div>
+            <div id="nav-footer-content">
+                <span>1 Monitoring Device Connected. MAC Address: AC:15:18:D7:B0:80</span>
+            </div>
+            </div>
+        </div>
+        <!-- navbar -->
+
+        <div id="pageContent1">
+            <div class="content">
+                <div id="myDevices-title">Settings</div>
+                <div class="subtitle">This page serves to personalize your device experience. Please enter below, the email addresses you would like to be notified as well as enviroment thresholds you would like to be notified for.</div>
+
+                <div id="parameters">
+
+                    <div class="parameterBox">
+                        <div class="parameterHeading">Alert Email/s: </div>
+                        <input type="email" id="parameter" placeholder="Enter email">
+                        <input type="email" id="parameter" placeholder="Enter email">
+                        <button class="button" onclick="sendEmail()">UPDATE</button>
+                    </div>
+
+                    <div class="parameterBox">
+                        <div class="parameterHeading">Fire Department Email: </div>
+                        <input type="email" id="parameter" placeholder="Enter email">
+                        <button class="button" onclick="sendEmail()">UPDATE</button>
+                    </div>
+
+                    <div class="parameterBox">
+                        <div class="parameterHeading">Hospital Email: </div>
+                        <input type="email" id="parameter" placeholder="Enter email">
+                        <button class="button" onclick="sendEmail()">UPDATE</button>
+                    </div>
+
+                    <div class="parameterBox">
+                        <div class="parameterHeading">Temperature Threshold: </div>
+                        <input type="number" id="parameter" placeholder="Enter max temperature">
+                        <button class="button" onclick="sendEmail()">UPDATE</button>
+                    </div>
+
+                    <div class="parameterBox">
+                        <div class="parameterHeading">Gas Concentration Threshold: </div>
+                        <input type="number" id="parameter" placeholder="Enter max gas concentration">
+                        <button class="button" onclick="sendEmail()">UPDATE</button>
+                    </div>
+                    
+                </div>
+
+            </div>
+            
+            
+            <script src="javascript files/settings.js"></script>
+        </div>
+        
+    </div>
+</body>
+</html>
