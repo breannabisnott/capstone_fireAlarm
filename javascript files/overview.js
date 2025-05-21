@@ -82,23 +82,6 @@ window.onload = function() {
 };
 
 
-// server.js
-/*require('dotenv').config();
-const express = require('express');
-const app = express();
-
-app.get('/load-google-maps', (req, res) => {
-  const apiKey = process.env.API_KEY;
-  res.send(`
-    <script 
-      src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=maps,marker&v=beta"
-      defer>
-    </script>
-  `);
-});*/
-
-app.listen(3000);
-
 document.addEventListener('DOMContentLoaded', function() {
   const deviceId = 'AC:15:18:D7:B0:80'; // Replace with your actual device ID
   let mapElement = document.querySelector("gmp-map");
@@ -127,10 +110,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   }
 
-  // function updateMapAndMarker(lat, lng) {
-  //     mapElement.setAttribute('center', `${lat},${lng}`);
-  //     markerElement.setAttribute('position', `${lat},${lng}`);
-  // }
+  //  function updateMapAndMarker(lat, lng) {
+  //      mapElement.setAttribute('center', `${lat},${lng}`);
+  //      markerElement.setAttribute('position', `${lat},${lng}`);
+  //  }
 
   fetchLatestLocation();
 });
