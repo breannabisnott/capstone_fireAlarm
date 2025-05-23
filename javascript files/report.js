@@ -205,7 +205,7 @@ async function sendPDFToBackend(pdfDoc) {
     const email = document.getElementById("email").value;
     if (!email) {
         alert("Please enter a valid email address.");
-        return;
+        return; 
     }
 
     const pdfBlob = pdfDoc.output('blob');

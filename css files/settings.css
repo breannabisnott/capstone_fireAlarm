@@ -63,7 +63,7 @@
     transform: scale(1.05);
 }
 
-#parameter {
+input[type=email], [type=number] {
     width: 18vw;
     padding: 6px 5px;
     margin: 2px 0;
