@@ -107,17 +107,16 @@ function generatePDF() {
     const marginLeft = 20;
     let y = 20;
 
-    // 🔥 Add logo at top center
+    // logo
     pdfDoc.addImage('images/faviconRed.png', 'PNG', 90, y, 30, 30);
     y += 40; // ⬅️ Increased spacing between logo and title
 
-    // 🔴 "Fyah Alarm" in Firebrick Red
     pdfDoc.setTextColor(178, 34, 34); // firebrick
     pdfDoc.setFontSize(22);
     pdfDoc.setFont("helvetica", "bold");
     pdfDoc.text("Fyah Alarm", 105, y, { align: "center" });
 
-    // 🔻 Subtitle & Report title
+    // Subtitle & Report title
     y += 10;
     pdfDoc.setTextColor(0, 0, 0);
     pdfDoc.setFontSize(16);
@@ -132,7 +131,7 @@ function generatePDF() {
     pdfDoc.setFont("helvetica", "bold");
     pdfDoc.text("Incident Report", 105, y, { align: "center" });
 
-    // 🔲 Box for info
+    //box
     y += 10;
     const boxTop = y;
     const boxHeight = 100;
@@ -144,7 +143,6 @@ function generatePDF() {
     pdfDoc.setFont("helvetica", "normal");
     pdfDoc.setFontSize(12);
 
-    // 📋 Correct Label-to-Cell Mapping
     pdfDoc.text("Device ID:", marginLeft, y);
     pdfDoc.text(cells[1].innerText, marginLeft + 50, y); y += 10;
 
@@ -169,11 +167,9 @@ function generatePDF() {
     pdfDoc.text("Gas Concentration:", marginLeft, y);
     pdfDoc.text(cells[8].innerText, marginLeft + 50, y); y += 10;
 
-    // 🧬 Oxygen concentration fix
-    pdfDoc.text("Oxygen Conc.:", marginLeft, y);
+    pdfDoc.text("Oxygen Concentration:", marginLeft, y);
     pdfDoc.text(cells[9].innerText, marginLeft + 50, y); y += 10;
 
-    // 📝 Additional Notes
     if (additionalText) {
         y += 5;
         pdfDoc.setFont("helvetica", "bold");
@@ -185,7 +181,6 @@ function generatePDF() {
         y += lines.length * 7 + 5;
     }
 
-    // 🔊 Audio
     if (uploadedAudio) {
         pdfDoc.setFont("helvetica", "bold");
         pdfDoc.text("Audio File:", marginLeft, y);
@@ -193,7 +188,6 @@ function generatePDF() {
         pdfDoc.text(uploadedAudio.name, marginLeft + 40, y); y += 10;
     }
 
-    // 🎞️ Video
     if (uploadedVideo) {
         pdfDoc.setFont("helvetica", "bold");
         pdfDoc.text("Video File:", marginLeft, y);
@@ -201,7 +195,6 @@ function generatePDF() {
         pdfDoc.text(uploadedVideo.name, marginLeft + 40, y); y += 10;
     }
 
-    // 🖼️ Image Upload
     if (uploadedImage) {
         const reader = new FileReader();
         reader.onload = function(event) {
