@@ -69,6 +69,46 @@ let data = [];
             displayPage(1);
         }
 
+        function downloadCSV() {
+            const csvHeaders = [
+                "Device ID", "Time Stamp", "Temperature", "Humidity",
+                "Flame Status", "Flame Level", "Gas Status", "Gas Concentration", "O2 Concentration"
+            ];
+        
+            // Convert records to CSV rows
+            const csvRows = [
+                csvHeaders.join(",")
+            ];
+        
+            data.forEach(record => {
+                const row = [
+                    record.device_id,
+                    record.time_stamp,
+                    record.temperature,
+                    record.humidity,
+                    record.flame,
+                    record.flame_level,
+                    record.gas,
+                    record.gas_concentration,
+                    record.oxygen_concentration
+                ];
+                csvRows.push(row.join(","));
+            });
+        
+            // Create blob and download
+            const csvContent = csvRows.join("\n");
+            const blob = new Blob([csvContent], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `Fyah Alarm History_${new Date().toISOString()}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+        
+
         document.getElementById('nav-toggle').addEventListener('change', function() {
             var pageContent = document.getElementById('pageContainer1');
             // var map = document.getElementsByTagName('gmp-map');

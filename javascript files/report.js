@@ -303,7 +303,7 @@ function downloadPDF() {
         alert("Please generate the PDF first.");
         return;
     }
-    pdfDoc.save("incident_report.pdf");
+    pdfDoc.save("Fyah Alarm Incident Report.pdf");
 }
 
 document.getElementById('nav-toggle').addEventListener('change', function() {
