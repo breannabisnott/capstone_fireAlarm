@@ -5,7 +5,7 @@ let data = [];
         async function fetchData() {
             const deviceId = document.getElementById('deviceId').value || 'AC:15:18:D7:B0:80';
             try {
-                const response = await fetch(`https://api.fyahalarm.com/data/${deviceId}?page_size=100&page_number=0`);
+                const response = await fetch(`https://api.fyahalarm.com/data/${deviceId}?page_size=150&page_number=0`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -34,13 +34,13 @@ let data = [];
                 row.innerHTML = `
                     <td>${record.device_id}</td>
                     <td>${formattedTime}</td>
-                    <td>${record.temperature}</td>
-                    <td>${record.humidity}</td>
+                    <td>${record.temperature.toFixed(2)}</td>
+                    <td>${record.humidity.toFixed(2)}</td>
                     <td>${record.flame ? '&check;' : '&times;'}</td>
-                    <td>${convertedFlameLevel}</td>
+                    <td>${convertedFlameLevel.toFixed(2)}</td>
                     <td>${record.gas ? '&check;' : '&times;'}</td>
-                    <td>${record.gas_concentration}</td>
-                    <td>${record.oxygen_concentration}</td>
+                    <td>${record.gas_concentration.toFixed(2)}</td>
+                    <td>${record.oxygen_concentration.toFixed(2)}</td>
                 `;
             });
             updatePagination();
