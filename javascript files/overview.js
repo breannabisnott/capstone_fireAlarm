@@ -26,8 +26,9 @@ function displayLatestReading(latestRecord) {
   textContainer.classList.add("latestReadingTextContainer");
 
   // Format the timestamp
-  const timestamp = new Date(latestRecord.time_stamp);
-  const formattedTime = timestamp.toLocaleString();
+  const date = new Date(latestRecord.time_stamp);
+  date.setHours(date.getHours() - 5); // Jamaica is UTC-5
+  const formattedTime = date.toLocaleString();
 
   textContainer.innerHTML = `
       <p class="latestReadingText">Time: ${formattedTime}</p>

@@ -26,14 +26,19 @@ let data = [];
             
             paginatedItems.forEach(record => {
                 const row = tbody.insertRow();
+                const date = new Date(record.time_stamp);
+                date.setHours(date.getHours() - 5); // Jamaica is UTC-5
+                const formattedTime = date.toLocaleString();
+                const convertedFlameLevel = record.flame_level / 4095;                
+
                 row.innerHTML = `
                     <td>${record.device_id}</td>
-                    <td>${record.time_stamp}</td>
+                    <td>${formattedTime}</td>
                     <td>${record.temperature}</td>
                     <td>${record.humidity}</td>
-                    <td>${record.flame}</td>
-                    <td>${record.flame_level}</td>
-                    <td>${record.gas}</td>
+                    <td>${record.flame ? '&check;' : '&times;'}</td>
+                    <td>${convertedFlameLevel}</td>
+                    <td>${record.gas ? '&check;' : '&times;'}</td>
                     <td>${record.gas_concentration}</td>
                     <td>${record.oxygen_concentration}</td>
                 `;
