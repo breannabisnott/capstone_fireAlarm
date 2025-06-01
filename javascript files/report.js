@@ -214,6 +214,7 @@ function generatePDF() {
         document.getElementById("downloadBtn").style.display = "inline";
     }
 }
+
 async function sendEmail() {
     const { jsPDF } = window.jspdf;
     const pdfDoc = new jsPDF();
@@ -335,90 +336,51 @@ async function sendEmail() {
     }
 }
 
-// Send PDF via Email
-// async function sendEmail() {
-//     const { jsPDF } = window.jspdf;
-
-//     // Generate the PDF
-//     const pdfDoc = new jsPDF();
-
-//     let selectedEntry = document.querySelector('input[name="entry"]:checked');
-//     if (!selectedEntry) {
-//         alert("Please select an entry to generate a report.");
-//         return;
-//     }
-
-//     let row = selectedEntry.closest('tr');
-//     let cells = row.getElementsByTagName('td');
-
-//     pdfDoc.text("Incident Report", 10, 10);
-//     pdfDoc.text(`Device ID: ${cells[1].innerText}`, 10, 20);
-//     pdfDoc.text(`Timestamp: ${cells[2].innerText}`, 10, 30);
-//     pdfDoc.text(`Temperature: ${cells[3].innerText}`, 10, 40);
-//     pdfDoc.text(`Flame Status: ${cells[4].innerText}`, 10, 50);
-//     pdfDoc.text(`Flame Level: ${cells[5].innerText}`, 10, 60);
-//     pdfDoc.text(`Gas Status: ${cells[6].innerText}`, 10, 70);
-//     pdfDoc.text(`Gas Concentration: ${cells[7].innerText}`, 10, 80);
-//     pdfDoc.text(`O2 Concentration: ${cells[8].innerText}`, 10, 90);
-
-//     if (additionalText) {
-//         pdfDoc.text("Additional Notes:", 10, 110);
-//         pdfDoc.text(additionalText, 10, 120);
-//     }
-
-//     let yOffset = 140;
-
-//     if (uploadedAudio) {
-//         pdfDoc.text(`Audio File: ${uploadedAudio.name}`, 10, yOffset);
-//         yOffset += 10;
-//     }
-
-//     if (uploadedVideo) {
-//         pdfDoc.text(`Video File: ${uploadedVideo.name}`, 10, yOffset);
-//         yOffset += 10;
-//     }
-
-//     if (uploadedImage) {
-//         const reader = new FileReader();
-//         reader.onload = function(event) {
-//             pdfDoc.addImage(event.target.result, 'JPEG', 10, yOffset, 50, 50);
-//             sendPDFToBackend(pdfDoc);
-//         };
-//         reader.readAsDataURL(uploadedImage);
-//     } else {
-//         sendPDFToBackend(pdfDoc);
-//     }
-// }
-
-// Send the PDF to the backend
 async function sendPDFToBackend(pdfDoc) {
     const email = document.getElementById("email").value;
-    if (!email) {
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
         alert("Please enter a valid email address.");
-        return; 
+        return;
     }
 
-    const pdfBlob = pdfDoc.output('blob');
-    const formData = new FormData();
-    formData.append('pdf', pdfBlob, 'incident_report.pdf');
-    formData.append('email', email);
+    // Show loading indicator
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
 
     try {
+        const pdfArrayBuffer = pdfDoc.output('arraybuffer'); // ✅ no await, no .then
+        const formData = new FormData();
+        formData.append('pdf', new Blob([pdfArrayBuffer], { type: 'application/pdf' }), 'incident_report.pdf');
+        formData.append('email', email);
+        
+        // Add timeout to fetch
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
         const response = await fetch('https://api.fyahalarm.com/send-email', {
             method: 'POST',
-            body: formData
+            body: formData,
+            signal: controller.signal
         });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.message || "Failed to send email.");
+            throw new Error(errorData.message || `Server error: ${response.status}`);
         }
 
         const data = await response.json();
-        alert(data.message);
+        alert("Email sent successfully!");
     } catch (error) {
         console.error('Error:', error);
-        alert(error.message || "Failed to send email.");
+        alert(error.name === 'AbortError' 
+            ? "Request timed out. Please try again." 
+            : error.message || "Failed to send email. Please check your connection.");
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Report";
     }
 }
 
