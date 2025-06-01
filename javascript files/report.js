@@ -214,12 +214,8 @@ function generatePDF() {
         document.getElementById("downloadBtn").style.display = "inline";
     }
 }
-
-// Send PDF via Email
 async function sendEmail() {
     const { jsPDF } = window.jspdf;
-
-    // Generate the PDF
     const pdfDoc = new jsPDF();
 
     let selectedEntry = document.querySelector('input[name="entry"]:checked');
@@ -231,37 +227,106 @@ async function sendEmail() {
     let row = selectedEntry.closest('tr');
     let cells = row.getElementsByTagName('td');
 
-    pdfDoc.text("Incident Report", 10, 10);
-    pdfDoc.text(`Device ID: ${cells[1].innerText}`, 10, 20);
-    pdfDoc.text(`Timestamp: ${cells[2].innerText}`, 10, 30);
-    pdfDoc.text(`Temperature: ${cells[3].innerText}`, 10, 40);
-    pdfDoc.text(`Flame Status: ${cells[4].innerText}`, 10, 50);
-    pdfDoc.text(`Flame Level: ${cells[5].innerText}`, 10, 60);
-    pdfDoc.text(`Gas Status: ${cells[6].innerText}`, 10, 70);
-    pdfDoc.text(`Gas Concentration: ${cells[7].innerText}`, 10, 80);
-    pdfDoc.text(`O2 Concentration: ${cells[8].innerText}`, 10, 90);
+    const marginLeft = 20;
+    let y = 20;
+
+    // Logo
+    pdfDoc.addImage('images/faviconRed.png', 'PNG', 90, y, 30, 30);
+    y += 40;
+
+    pdfDoc.setTextColor(178, 34, 34); // firebrick
+    pdfDoc.setFontSize(22);
+    pdfDoc.setFont("helvetica", "bold");
+    pdfDoc.text("Fyah Alarm", 105, y, { align: "center" });
+
+    y += 10;
+    pdfDoc.setTextColor(0, 0, 0);
+    pdfDoc.setFontSize(16);
+    pdfDoc.text("Fire Detection and Alarm System", 105, y, { align: "center" });
+
+    y += 8;
+    pdfDoc.setFontSize(12);
+    pdfDoc.text("https://fyahalarm.com", 105, y, { align: "center" });
+
+    y += 10;
+    pdfDoc.setFontSize(14);
+    pdfDoc.setFont("helvetica", "bold");
+    pdfDoc.text("Incident Report", 105, y, { align: "center" });
+
+    // Box
+    y += 10;
+    const boxTop = y;
+    const boxHeight = 110;
+    pdfDoc.setDrawColor(0);
+    pdfDoc.setLineWidth(0.5);
+    pdfDoc.rect(marginLeft - 5, boxTop, 170, boxHeight);
+
+    y += 10;
+    pdfDoc.setFont("helvetica", "normal");
+    pdfDoc.setFontSize(12);
+
+    pdfDoc.text("Device ID:", marginLeft, y);
+    pdfDoc.text(cells[1].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Timestamp:", marginLeft, y);
+    pdfDoc.text(cells[2].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Temperature:", marginLeft, y);
+    pdfDoc.text(cells[3].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Humidity:", marginLeft, y);
+    pdfDoc.text(cells[4].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Flame Status:", marginLeft, y);
+    pdfDoc.text(cells[5].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Flame Level:", marginLeft, y);
+    pdfDoc.text(cells[6].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Gas Status:", marginLeft, y);
+    pdfDoc.text(cells[7].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Gas Concentration:", marginLeft, y);
+    pdfDoc.text(cells[8].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Oxygen Concentration:", marginLeft, y);
+    pdfDoc.text(cells[9].innerText, marginLeft + 50, y); y += 10;
 
     if (additionalText) {
-        pdfDoc.text("Additional Notes:", 10, 110);
-        pdfDoc.text(additionalText, 10, 120);
+        y += 5;
+        pdfDoc.setFont("helvetica", "bold");
+        pdfDoc.text("Additional Notes:", marginLeft, y);
+        y += 7;
+        pdfDoc.setFont("helvetica", "normal");
+        const lines = pdfDoc.splitTextToSize(additionalText, 170);
+        pdfDoc.text(lines, marginLeft, y);
+        y += lines.length * 7 + 5;
     }
 
-    let yOffset = 140;
-
     if (uploadedAudio) {
-        pdfDoc.text(`Audio File: ${uploadedAudio.name}`, 10, yOffset);
-        yOffset += 10;
+        pdfDoc.setFont("helvetica", "bold");
+        pdfDoc.text("Audio File:", marginLeft, y);
+        pdfDoc.setFont("helvetica", "normal");
+        pdfDoc.text(uploadedAudio.name, marginLeft + 40, y);
+        y += 10;
     }
 
     if (uploadedVideo) {
-        pdfDoc.text(`Video File: ${uploadedVideo.name}`, 10, yOffset);
-        yOffset += 10;
+        pdfDoc.setFont("helvetica", "bold");
+        pdfDoc.text("Video File:", marginLeft, y);
+        pdfDoc.setFont("helvetica", "normal");
+        pdfDoc.text(uploadedVideo.name, marginLeft + 40, y);
+        y += 10;
     }
 
     if (uploadedImage) {
         const reader = new FileReader();
         reader.onload = function(event) {
-            pdfDoc.addImage(event.target.result, 'JPEG', 10, yOffset, 50, 50);
+            y += 5;
+            pdfDoc.setFont("helvetica", "bold");
+            pdfDoc.text("Attached Image:", marginLeft, y);
+            y += 5;
+            pdfDoc.addImage(event.target.result, 'JPEG', marginLeft, y, 50, 50);
             sendPDFToBackend(pdfDoc);
         };
         reader.readAsDataURL(uploadedImage);
@@ -269,6 +334,61 @@ async function sendEmail() {
         sendPDFToBackend(pdfDoc);
     }
 }
+
+// Send PDF via Email
+// async function sendEmail() {
+//     const { jsPDF } = window.jspdf;
+
+//     // Generate the PDF
+//     const pdfDoc = new jsPDF();
+
+//     let selectedEntry = document.querySelector('input[name="entry"]:checked');
+//     if (!selectedEntry) {
+//         alert("Please select an entry to generate a report.");
+//         return;
+//     }
+
+//     let row = selectedEntry.closest('tr');
+//     let cells = row.getElementsByTagName('td');
+
+//     pdfDoc.text("Incident Report", 10, 10);
+//     pdfDoc.text(`Device ID: ${cells[1].innerText}`, 10, 20);
+//     pdfDoc.text(`Timestamp: ${cells[2].innerText}`, 10, 30);
+//     pdfDoc.text(`Temperature: ${cells[3].innerText}`, 10, 40);
+//     pdfDoc.text(`Flame Status: ${cells[4].innerText}`, 10, 50);
+//     pdfDoc.text(`Flame Level: ${cells[5].innerText}`, 10, 60);
+//     pdfDoc.text(`Gas Status: ${cells[6].innerText}`, 10, 70);
+//     pdfDoc.text(`Gas Concentration: ${cells[7].innerText}`, 10, 80);
+//     pdfDoc.text(`O2 Concentration: ${cells[8].innerText}`, 10, 90);
+
+//     if (additionalText) {
+//         pdfDoc.text("Additional Notes:", 10, 110);
+//         pdfDoc.text(additionalText, 10, 120);
+//     }
+
+//     let yOffset = 140;
+
+//     if (uploadedAudio) {
+//         pdfDoc.text(`Audio File: ${uploadedAudio.name}`, 10, yOffset);
+//         yOffset += 10;
+//     }
+
+//     if (uploadedVideo) {
+//         pdfDoc.text(`Video File: ${uploadedVideo.name}`, 10, yOffset);
+//         yOffset += 10;
+//     }
+
+//     if (uploadedImage) {
+//         const reader = new FileReader();
+//         reader.onload = function(event) {
+//             pdfDoc.addImage(event.target.result, 'JPEG', 10, yOffset, 50, 50);
+//             sendPDFToBackend(pdfDoc);
+//         };
+//         reader.readAsDataURL(uploadedImage);
+//     } else {
+//         sendPDFToBackend(pdfDoc);
+//     }
+// }
 
 // Send the PDF to the backend
 async function sendPDFToBackend(pdfDoc) {
