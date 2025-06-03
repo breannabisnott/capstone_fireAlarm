@@ -6,6 +6,7 @@
     <title>Report</title>
     <link rel="icon" type="image/x-icon" href="images/faviconRed.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'><link rel="stylesheet" href="css files/navBar.css">
     <link rel="stylesheet" href="css files/history.css">
     <link rel="stylesheet" href="css files/overview.css">
@@ -110,6 +111,7 @@
 
             <div id="generate-container">
                 <button class="button" onclick="generatePDF()">Generate PDF</button>
+                <button class="button" onclick="generateWebReport()">Generate Web Report</button>
                 <button id="downloadBtn" style="display: none;" onclick="downloadPDF()">Download PDF</button>
                 <br>
                 <input type="email" id="email" placeholder="Enter email">
