@@ -215,183 +215,9 @@ function generatePDF() {
     }
 }
 
-// async function sendEmail() {
-//     const { jsPDF } = window.jspdf;
-//     const pdfDoc = new jsPDF();
-
-//     let selectedEntry = document.querySelector('input[name="entry"]:checked');
-//     if (!selectedEntry) {
-//         alert("Please select an entry to generate a report.");
-//         return;
-//     }
-
-//     let row = selectedEntry.closest('tr');
-//     let cells = row.getElementsByTagName('td');
-
-//     const marginLeft = 20;
-//     let y = 20;
-
-//     // Logo
-//     pdfDoc.addImage('images/faviconRed.png', 'PNG', 90, y, 30, 30);
-//     y += 40;
-
-//     pdfDoc.setTextColor(178, 34, 34); // firebrick
-//     pdfDoc.setFontSize(22);
-//     pdfDoc.setFont("helvetica", "bold");
-//     pdfDoc.text("Fyah Alarm", 105, y, { align: "center" });
-
-//     y += 10;
-//     pdfDoc.setTextColor(0, 0, 0);
-//     pdfDoc.setFontSize(16);
-//     pdfDoc.text("Fire Detection and Alarm System", 105, y, { align: "center" });
-
-//     y += 8;
-//     pdfDoc.setFontSize(12);
-//     pdfDoc.text("https://fyahalarm.com", 105, y, { align: "center" });
-
-//     y += 10;
-//     pdfDoc.setFontSize(14);
-//     pdfDoc.setFont("helvetica", "bold");
-//     pdfDoc.text("Incident Report", 105, y, { align: "center" });
-
-//     // Box
-//     y += 10;
-//     const boxTop = y;
-//     const boxHeight = 110;
-//     pdfDoc.setDrawColor(0);
-//     pdfDoc.setLineWidth(0.5);
-//     pdfDoc.rect(marginLeft - 5, boxTop, 170, boxHeight);
-
-//     y += 10;
-//     pdfDoc.setFont("helvetica", "normal");
-//     pdfDoc.setFontSize(12);
-
-//     pdfDoc.text("Device ID:", marginLeft, y);
-//     pdfDoc.text(cells[1].innerText, marginLeft + 50, y); y += 10;
-
-//     pdfDoc.text("Timestamp:", marginLeft, y);
-//     pdfDoc.text(cells[2].innerText, marginLeft + 50, y); y += 10;
-
-//     pdfDoc.text("Temperature:", marginLeft, y);
-//     pdfDoc.text(cells[3].innerText, marginLeft + 50, y); y += 10;
-
-//     pdfDoc.text("Humidity:", marginLeft, y);
-//     pdfDoc.text(cells[4].innerText, marginLeft + 50, y); y += 10;
-
-//     pdfDoc.text("Flame Status:", marginLeft, y);
-//     pdfDoc.text(cells[5].innerText, marginLeft + 50, y); y += 10;
-
-//     pdfDoc.text("Flame Level:", marginLeft, y);
-//     pdfDoc.text(cells[6].innerText, marginLeft + 50, y); y += 10;
-
-//     pdfDoc.text("Gas Status:", marginLeft, y);
-//     pdfDoc.text(cells[7].innerText, marginLeft + 50, y); y += 10;
-
-//     pdfDoc.text("Gas Concentration:", marginLeft, y);
-//     pdfDoc.text(cells[8].innerText, marginLeft + 50, y); y += 10;
-
-//     pdfDoc.text("Oxygen Concentration:", marginLeft, y);
-//     pdfDoc.text(cells[9].innerText, marginLeft + 50, y); y += 10;
-
-//     if (additionalText) {
-//         y += 5;
-//         pdfDoc.setFont("helvetica", "bold");
-//         pdfDoc.text("Additional Notes:", marginLeft, y);
-//         y += 7;
-//         pdfDoc.setFont("helvetica", "normal");
-//         const lines = pdfDoc.splitTextToSize(additionalText, 170);
-//         pdfDoc.text(lines, marginLeft, y);
-//         y += lines.length * 7 + 5;
-//     }
-
-//     if (uploadedAudio) {
-//         pdfDoc.setFont("helvetica", "bold");
-//         pdfDoc.text("Audio File:", marginLeft, y);
-//         pdfDoc.setFont("helvetica", "normal");
-//         pdfDoc.text(uploadedAudio.name, marginLeft + 40, y);
-//         y += 10;
-//     }
-
-//     if (uploadedVideo) {
-//         pdfDoc.setFont("helvetica", "bold");
-//         pdfDoc.text("Video File:", marginLeft, y);
-//         pdfDoc.setFont("helvetica", "normal");
-//         pdfDoc.text(uploadedVideo.name, marginLeft + 40, y);
-//         y += 10;
-//     }
-
-//     if (uploadedImage) {
-//         const reader = new FileReader();
-//         reader.onload = function(event) {
-//             y += 5;
-//             pdfDoc.setFont("helvetica", "bold");
-//             pdfDoc.text("Attached Image:", marginLeft, y);
-//             y += 5;
-//             pdfDoc.addImage(event.target.result, 'JPEG', marginLeft, y, 50, 50);
-//             sendPDFToBackend(pdfDoc);
-//         };
-//         reader.readAsDataURL(uploadedImage);
-//     } else {
-//         sendPDFToBackend(pdfDoc);
-//     }
-// }
-
-// async function sendPDFToBackend(pdfDoc) {
-//     const email = document.getElementById("email").value;
-//     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-//         alert("Please enter a valid email address.");
-//         return;
-//     }
-
-//     // Show loading indicator
-//     const submitBtn = document.getElementById("submitBtn");
-//     submitBtn.disabled = true;
-//     submitBtn.textContent = "Sending...";
-
-//     try {
-//         const pdfArrayBuffer = pdfDoc.output('arraybuffer'); // ✅ no await, no .then
-//         const formData = new FormData();
-//         formData.append('pdf', new Blob([pdfArrayBuffer], { type: 'application/pdf' }), 'incident_report.pdf');
-//         formData.append('email', email);
-        
-//         // Add timeout to fetch
-//         const controller = new AbortController();
-//         const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
-
-//         const response = await fetch('https://api.fyahalarm.com/send-email', {
-//             method: 'POST',
-//             body: formData,
-//             signal: controller.signal
-//         });
-
-//         clearTimeout(timeoutId);
-
-//         if (!response.ok) {
-//             const errorData = await response.json();
-//             throw new Error(errorData.message || `Server error: ${response.status}`);
-//         }
-
-//         const data = await response.json();
-//         alert("Email sent successfully!");
-//     } catch (error) {
-//         console.error('Error:', error);
-//         alert(error.name === 'AbortError' 
-//             ? "Request timed out. Please try again." 
-//             : error.message || "Failed to send email. Please check your connection.");
-//     } finally {
-//         submitBtn.disabled = false;
-//         submitBtn.textContent = "Send Report";
-//     }
-// }
-
 async function sendEmail() {
     const { jsPDF } = window.jspdf;
-    
-    // Create PDF with compression settings
-    const pdfDoc = new jsPDF({
-        unit: 'pt',
-        compress: true  // Enable PDF compression
-    });
+    const pdfDoc = new jsPDF();
 
     let selectedEntry = document.querySelector('input[name="entry"]:checked');
     if (!selectedEntry) {
@@ -405,12 +231,11 @@ async function sendEmail() {
     const marginLeft = 20;
     let y = 20;
 
-    // Logo - compress by reducing size
-    pdfDoc.addImage('images/faviconRed.png', 'PNG', 90, y, 20, 20); // Reduced from 30x30
-    y += 30;
+    // Logo
+    pdfDoc.addImage('images/faviconRed.png', 'PNG', 90, y, 30, 30);
+    y += 40;
 
-    // Text content (unchanged)
-    pdfDoc.setTextColor(178, 34, 34);
+    pdfDoc.setTextColor(178, 34, 34); // firebrick
     pdfDoc.setFontSize(22);
     pdfDoc.setFont("helvetica", "bold");
     pdfDoc.text("Fyah Alarm", 105, y, { align: "center" });
@@ -429,97 +254,130 @@ async function sendEmail() {
     pdfDoc.setFont("helvetica", "bold");
     pdfDoc.text("Incident Report", 105, y, { align: "center" });
 
-    // Rest of your content (unchanged)
-    // ...
+    // Box
+    y += 10;
+    const boxTop = y;
+    const boxHeight = 110;
+    pdfDoc.setDrawColor(0);
+    pdfDoc.setLineWidth(0.5);
+    pdfDoc.rect(marginLeft - 5, boxTop, 170, boxHeight);
+
+    y += 10;
+    pdfDoc.setFont("helvetica", "normal");
+    pdfDoc.setFontSize(12);
+
+    pdfDoc.text("Device ID:", marginLeft, y);
+    pdfDoc.text(cells[1].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Timestamp:", marginLeft, y);
+    pdfDoc.text(cells[2].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Temperature:", marginLeft, y);
+    pdfDoc.text(cells[3].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Humidity:", marginLeft, y);
+    pdfDoc.text(cells[4].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Flame Status:", marginLeft, y);
+    pdfDoc.text(cells[5].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Flame Level:", marginLeft, y);
+    pdfDoc.text(cells[6].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Gas Status:", marginLeft, y);
+    pdfDoc.text(cells[7].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Gas Concentration:", marginLeft, y);
+    pdfDoc.text(cells[8].innerText, marginLeft + 50, y); y += 10;
+
+    pdfDoc.text("Oxygen Concentration:", marginLeft, y);
+    pdfDoc.text(cells[9].innerText, marginLeft + 50, y); y += 10;
+
+    if (additionalText) {
+        y += 5;
+        pdfDoc.setFont("helvetica", "bold");
+        pdfDoc.text("Additional Notes:", marginLeft, y);
+        y += 7;
+        pdfDoc.setFont("helvetica", "normal");
+        const lines = pdfDoc.splitTextToSize(additionalText, 170);
+        pdfDoc.text(lines, marginLeft, y);
+        y += lines.length * 7 + 5;
+    }
+
+    if (uploadedAudio) {
+        pdfDoc.setFont("helvetica", "bold");
+        pdfDoc.text("Audio File:", marginLeft, y);
+        pdfDoc.setFont("helvetica", "normal");
+        pdfDoc.text(uploadedAudio.name, marginLeft + 40, y);
+        y += 10;
+    }
+
+    if (uploadedVideo) {
+        pdfDoc.setFont("helvetica", "bold");
+        pdfDoc.text("Video File:", marginLeft, y);
+        pdfDoc.setFont("helvetica", "normal");
+        pdfDoc.text(uploadedVideo.name, marginLeft + 40, y);
+        y += 10;
+    }
 
     if (uploadedImage) {
         const reader = new FileReader();
         reader.onload = function(event) {
-            // Compress image before adding to PDF
-            const img = new Image();
-            img.onload = async function() {
-                const canvas = document.createElement('canvas');
-                const MAX_WIDTH = 400;  // Reduced from original
-                const MAX_HEIGHT = 300;
-                
-                // Calculate new dimensions
-                let width = img.width;
-                let height = img.height;
-                if (width > height) {
-                    if (width > MAX_WIDTH) {
-                        height *= MAX_WIDTH / width;
-                        width = MAX_WIDTH;
-                    }
-                } else {
-                    if (height > MAX_HEIGHT) {
-                        width *= MAX_HEIGHT / height;
-                        height = MAX_HEIGHT;
-                    }
-                }
-                
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
-                
-                // Add compressed image
-                y += 5;
-                pdfDoc.setFont("helvetica", "bold");
-                pdfDoc.text("Attached Image:", marginLeft, y);
-                y += 5;
-                pdfDoc.addImage(canvas, 'JPEG', marginLeft, y, width/4, height/4); // Further reduced size
-                
-                await sendCompressedPDF(pdfDoc);
-            };
-            img.src = event.target.result;
+            y += 5;
+            pdfDoc.setFont("helvetica", "bold");
+            pdfDoc.text("Attached Image:", marginLeft, y);
+            y += 5;
+            pdfDoc.addImage(event.target.result, 'JPEG', marginLeft, y, 50, 50);
+            sendPDFToBackend(pdfDoc);
         };
         reader.readAsDataURL(uploadedImage);
     } else {
-        await sendCompressedPDF(pdfDoc);
+        sendPDFToBackend(pdfDoc);
     }
 }
 
-async function sendCompressedPDF(pdfDoc) {
+async function sendPDFToBackend(pdfDoc) {
     const email = document.getElementById("email").value;
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
         alert("Please enter a valid email address.");
         return;
     }
 
+    // Show loading indicator
     const submitBtn = document.getElementById("submitBtn");
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
 
     try {
-        // Additional compression by reducing quality
-        const pdfArrayBuffer = pdfDoc.output('arraybuffer', {
-            compress: true,
-            quality: 0.95  // Slightly reduce quality (1.0 is max)
-        });
-
-        // Create a smaller Blob
-        const pdfBlob = new Blob([pdfArrayBuffer], { type: 'application/pdf' });
-        
-        // Check file size
-        if (pdfBlob.size > 2 * 1024 * 1024) { // 2MB limit
-            throw new Error("PDF is too large after compression. Please reduce image sizes.");
-        }
-
+        const pdfArrayBuffer = pdfDoc.output('arraybuffer'); // ✅ no await, no .then
         const formData = new FormData();
-        formData.append('pdf', pdfBlob, 'incident_report.pdf');
+        formData.append('pdf', new Blob([pdfArrayBuffer], { type: 'application/pdf' }), 'incident_report.pdf');
         formData.append('email', email);
+        
+        // Add timeout to fetch
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
 
         const response = await fetch('https://api.fyahalarm.com/send-email', {
             method: 'POST',
             body: formData,
-            signal: AbortSignal.timeout(30000) // 30s timeout
+            signal: controller.signal
         });
 
-        if (!response.ok) throw new Error(await response.text());
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Server error: ${response.status}`);
+        }
+
+        const data = await response.json();
         alert("Email sent successfully!");
     } catch (error) {
         console.error('Error:', error);
-        alert(error.message || "Failed to send email. Please try again.");
+        alert(error.name === 'AbortError' 
+            ? "Request timed out. Please try again." 
+            : error.message || "Failed to send email. Please check your connection.");
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = "Send Report";
