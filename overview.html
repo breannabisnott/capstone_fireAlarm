@@ -4,14 +4,15 @@
   <meta charset="UTF-8">
   <title>Overview</title>
   <link rel="icon" type="image/x-icon" href="images/faviconRed.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'><link rel="stylesheet" href="css files/navBar.css">
   <link rel="stylesheet" href="css files/overview.css">
   <link rel="stylesheet" href="css files/navBar.css">
 
 </head>
 <body>
-<!-- navbar -->
-<div id="pageContainer">
+
+<!-- <div id="pageContainer">
   <div id="nav-bar">
     <input id="nav-toggle" type="checkbox" checked/>
     <div id="nav-header"><a id="nav-title" href="overview.html" target="_blank">Fyah Alarm</a>
@@ -25,7 +26,7 @@
       <div class="nav-button"><a href="settings.html"><i class="fas fa-cog"></i><span>Settings</span></div></a>
       <div class="nav-button"><a href="index.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></div></a>
       
-      <!-- <hr/> -->
+    
       <div id="nav-content-highlight"></div> 
     </div>
     <input id="nav-footer-toggle" type="checkbox"/>
@@ -40,7 +41,7 @@
       </div>
     </div>
   </div>
-  <!-- navbar -->
+ 
   
   <div id="pageContent">
 
@@ -74,15 +75,136 @@
         
       </div>
 
-      <!-- <div id = "bottom-right">
-
-      
-      </div> -->
-
       </div>
 
-    </div>
+    </div> -->
 
+
+    <div id="pageContainer">
+      <div id="nav-bar">
+        <input id="nav-toggle" type="checkbox" checked/>
+        <div id="nav-header"><a id="nav-title" href="overview.html" target="_blank">Fyah Alarm</a>
+          <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+          <hr/>
+        </div>
+        <div id="nav-content">
+          <div class="nav-button"><a href="overview.html"><i class="fas fa-fire"></i><span>Overview</span></div></a>
+          <div class="nav-button"><a href="history.html"><i class="fas fa-chart-line"></i><span>History</span></div></a>
+          <div class="nav-button"><a href="report.html"><i class="fas fa-archive"></i><span>Report</span></div></a>
+          <div class="nav-button"><a href="settings.html"><i class="fas fa-cog"></i><span>Settings</span></div></a>
+          <div class="nav-button"><a href="index.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></div></a>
+          
+          <div id="nav-content-highlight"></div> 
+        </div>
+        <input id="nav-footer-toggle" type="checkbox"/>
+        <div id="nav-footer">
+          <div id="nav-footer-heading">
+            <div id="nav-footer-avatar"><img src="https://cdn.vectorstock.com/i/500p/82/33/person-gray-photo-placeholder-woman-vector-24138233.jpg"/></div>
+            <div id="nav-footer-titlebox"><a id="nav-footer-title"  target="_blank">Breanna</a><span id="nav-footer-subtitle">Admin</span></div>
+            <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+          </div>
+          <div id="nav-footer-content">
+            <span>1 Monitoring Device Connected. MAC Address: AC:15:18:D7:B0:80</span>
+          </div>
+        </div>
+      </div>
+      <!-- navbar -->
+      
+      <div id="pageContent">
+    
+        <div id="pageContent-left">
+          <div id="myDevices-title">Your Devices</div>
+          
+          <div id="myDevices">
+            <!-- Your existing devices will be loaded here -->
+          </div>
+    
+          <!-- Charts Section -->
+          <div id="chartsSection">
+            <div class="charts-title">Real-Time Monitoring</div>
+            
+            <!-- Controls Section -->
+            <div class="controls-section">
+              <h3>Data Controls</h3>
+              <div class="controls-row">
+                <input type="text" id="deviceId" placeholder="Device ID (AC:15:18:D7:B0:80)" />
+                <button onclick="fetchSensorData()">Refresh Data</button>
+                <button onclick="updateAllCharts()">Update Charts</button>
+                <select id="timeRange" onchange="changeTimeRange()">
+                  <option value="10">Last 10 readings</option>
+                  <option value="20" selected>Last 20 readings</option>
+                  <option value="50">Last 50 readings</option>
+                </select>
+              </div>
+            </div>
+    
+            <!-- Charts Container -->
+            <div class="charts-container">
+              
+              <!-- Temperature & Humidity Chart -->
+              <div class="chart-box">
+                <div class="chart-title">
+                  <span class="status-indicator status-ok"></span>
+                  Temperature & Humidity
+                </div>
+                <canvas id="tempHumidityChart" class="chart-canvas"></canvas>
+              </div>
+              
+              <!-- Gas & Oxygen Chart -->
+              <div class="chart-box">
+                <div class="chart-title">
+                  <span class="status-indicator status-ok"></span>
+                  Gas & Oxygen Levels
+                </div>
+                <canvas id="gasOxygenChart" class="chart-canvas"></canvas>
+              </div>
+              
+              <!-- Flame Detection Chart -->
+              <div class="chart-box">
+                <div class="chart-title">
+                  <span class="status-indicator status-ok"></span>
+                  Flame Detection
+                </div>
+                <canvas id="flameChart" class="chart-canvas"></canvas>
+              </div>
+              
+              <!-- System Status Overview -->
+              <div class="chart-box overview-chart">
+                <div class="chart-title">
+                  <span class="status-indicator status-ok"></span>
+                  System Status Overview
+                </div>
+                <canvas id="overviewChart" class="chart-canvas"></canvas>
+              </div>
+              
+            </div>
+          </div>
+    
+        </div>
+    
+        <div id="pageContent-right">
+          
+          <div class = "locationBox">
+            
+            <div class = "location-text">
+                <span class="yourLocation">Device Location</span>
+            </div>
+            <div class = "map" id="map">
+    
+              <gmp-map zoom="16" map-id="DEMO_MAP_ID">
+                <gmp-advanced-marker title="Device Location"></gmp-advanced-marker>
+              </gmp-map>
+              
+              <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDidYXtk9kzBG_sDo1bVP4U89PblOW6Ocs&callback=console.debug&libraries=maps,marker&v=beta">
+              </script>
+             
+            </div>
+            
+          </div>
+    
+        </div>
+    
+      </div>
   <script src="javascript files/navbar.js"></script>
   <script src="javascript files/overview.js"></script>
 
