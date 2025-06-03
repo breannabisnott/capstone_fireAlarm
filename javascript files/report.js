@@ -185,19 +185,19 @@ function generatePDF() {
         y += lines.length * 7 + 5;
     }
 
-    // if (uploadedAudio) {
-    //     pdfDoc.setFont("helvetica", "bold");
-    //     pdfDoc.text("Audio File:", marginLeft, y);
-    //     pdfDoc.setFont("helvetica", "normal");
-    //     pdfDoc.text(uploadedAudio.name, marginLeft + 40, y); y += 10;
-    // }
+    if (uploadedAudio) {
+        pdfDoc.setFont("helvetica", "bold");
+        pdfDoc.text("Audio File:", marginLeft, y);
+        pdfDoc.setFont("helvetica", "normal");
+        pdfDoc.text(uploadedAudio.name, marginLeft + 40, y); y += 10;
+    }
 
-    // if (uploadedVideo) {
-    //     pdfDoc.setFont("helvetica", "bold");
-    //     pdfDoc.text("Video File:", marginLeft, y);
-    //     pdfDoc.setFont("helvetica", "normal");
-    //     pdfDoc.text(uploadedVideo.name, marginLeft + 40, y); y += 10;
-    // }
+    if (uploadedVideo) {
+        pdfDoc.setFont("helvetica", "bold");
+        pdfDoc.text("Video File:", marginLeft, y);
+        pdfDoc.setFont("helvetica", "normal");
+        pdfDoc.text(uploadedVideo.name, marginLeft + 40, y); y += 10;
+    }
 
     if (uploadedImage) {
         const reader = new FileReader();
@@ -304,21 +304,21 @@ async function sendEmail() {
         y += lines.length * 7 + 5;
     }
 
-    // if (uploadedAudio) {
-    //     pdfDoc.setFont("helvetica", "bold");
-    //     pdfDoc.text("Audio File:", marginLeft, y);
-    //     pdfDoc.setFont("helvetica", "normal");
-    //     pdfDoc.text(uploadedAudio.name, marginLeft + 40, y);
-    //     y += 10;
-    // }
+    if (uploadedAudio) {
+        pdfDoc.setFont("helvetica", "bold");
+        pdfDoc.text("Audio File:", marginLeft, y);
+        pdfDoc.setFont("helvetica", "normal");
+        pdfDoc.text(uploadedAudio.name, marginLeft + 40, y);
+        y += 10;
+    }
 
-    // if (uploadedVideo) {
-    //     pdfDoc.setFont("helvetica", "bold");
-    //     pdfDoc.text("Video File:", marginLeft, y);
-    //     pdfDoc.setFont("helvetica", "normal");
-    //     pdfDoc.text(uploadedVideo.name, marginLeft + 40, y);
-    //     y += 10;
-    // }
+    if (uploadedVideo) {
+        pdfDoc.setFont("helvetica", "bold");
+        pdfDoc.text("Video File:", marginLeft, y);
+        pdfDoc.setFont("helvetica", "normal");
+        pdfDoc.text(uploadedVideo.name, marginLeft + 40, y);
+        y += 10;
+    }
 
     if (uploadedImage) {
         const reader = new FileReader();
