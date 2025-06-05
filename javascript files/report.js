@@ -336,48 +336,136 @@ async function sendEmail() {
     }
 }
 
+// async function sendPDFToBackend(pdfDoc) {
+//     const email = document.getElementById("email").value;
+//     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+//         alert("Please enter a valid email address.");
+//         return;
+//     }
+
+//     // Show loading indicator
+//     const submitBtn = document.getElementById("submitBtn");
+//     submitBtn.disabled = true;
+//     submitBtn.textContent = "Sending...";
+
+//     try {
+//         const pdfArrayBuffer = pdfDoc.output('arraybuffer'); // ✅ no await, no .then
+//         const formData = new FormData();
+//         formData.append('pdf', new Blob([pdfArrayBuffer], { type: 'application/pdf' }), 'incident_report.pdf');
+//         formData.append('email', email);
+        
+//         // Add timeout to fetch
+//         const controller = new AbortController();
+//         const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
+//         const response = await fetch('https://api.fyahalarm.com/send-email', {
+//             method: 'POST',
+//             body: formData,
+//             signal: controller.signal
+//         });
+
+//         clearTimeout(timeoutId);
+
+//         if (!response.ok) {
+//             const errorData = await response.json();
+//             throw new Error(errorData.message || `Server error: ${response.status}`);
+//         }
+
+//         const data = await response.json();
+//         alert("Email sent successfully!");
+//     } catch (error) {
+//         console.error('Error:', error);
+//         alert(error.name === 'AbortError' 
+//             ? "Request timed out. Please try again." 
+//             : error.message || "Failed to send email. Please check your connection.");
+//     } finally {
+//         submitBtn.disabled = false;
+//         submitBtn.textContent = "Send Report";
+//     }
+// }
+
 async function sendPDFToBackend(pdfDoc) {
     const email = document.getElementById("email").value;
+    
+    // Validate email client-side
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
         alert("Please enter a valid email address.");
         return;
     }
 
-    // Show loading indicator
     const submitBtn = document.getElementById("submitBtn");
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
 
     try {
-        const pdfArrayBuffer = pdfDoc.output('arraybuffer'); // ✅ no await, no .then
+        // Generate PDF and check size
+        const pdfArrayBuffer = pdfDoc.output('arraybuffer');
+        const sizeInMB = pdfArrayBuffer.byteLength / (1024 * 1024);
+        
+        if (sizeInMB > 10) {
+            throw new Error("PDF file is too large (max 10MB). Please reduce content.");
+        }
+
+        // Create form data
         const formData = new FormData();
         formData.append('pdf', new Blob([pdfArrayBuffer], { type: 'application/pdf' }), 'incident_report.pdf');
         formData.append('email', email);
         
-        // Add timeout to fetch
+        // Set up fetch with longer timeout and retry logic
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+        const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s timeout
 
         const response = await fetch('https://api.fyahalarm.com/send-email', {
             method: 'POST',
             body: formData,
-            signal: controller.signal
+            signal: controller.signal,
+            // Add headers for better connection handling
+            headers: {
+                'Accept': 'application/json',
+            }
         });
 
         clearTimeout(timeoutId);
 
+        // Handle different response types
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || `Server error: ${response.status}`);
+            let errorMessage = `Server error: ${response.status}`;
+            
+            try {
+                const errorData = await response.json();
+                errorMessage = errorData.message || errorMessage;
+            } catch (parseError) {
+                // If JSON parsing fails, use status text
+                errorMessage = response.statusText || errorMessage;
+            }
+            
+            throw new Error(errorMessage);
         }
 
         const data = await response.json();
-        alert("Email sent successfully!");
+        
+        // Success feedback
+        alert("✅ Email sent successfully! Check your inbox.");
+        
+        // Optional: Clear the email field after successful send
+        document.getElementById("email").value = "";
+        
     } catch (error) {
-        console.error('Error:', error);
-        alert(error.name === 'AbortError' 
-            ? "Request timed out. Please try again." 
-            : error.message || "Failed to send email. Please check your connection.");
+        console.error('Email sending error:', error);
+        
+        let userMessage;
+        if (error.name === 'AbortError') {
+            userMessage = "⏱️ Request timed out. The server might be busy. Please try again.";
+        } else if (error.message.includes('Failed to fetch')) {
+            userMessage = "🌐 Network error. Please check your internet connection and try again.";
+        } else if (error.message.includes('too large')) {
+            userMessage = "📄 " + error.message;
+        } else {
+            userMessage = "❌ " + (error.message || "Failed to send email. Please try again.");
+        }
+        
+        alert(userMessage);
+        
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = "Send Report";
